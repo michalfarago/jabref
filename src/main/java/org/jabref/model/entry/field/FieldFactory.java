@@ -17,6 +17,8 @@ import org.jabref.model.entry.types.EntryType;
 import org.jabref.model.strings.StringUtil;
 import org.jabref.model.util.OptionalUtil;
 
+import com.google.common.annotations.VisibleForTesting;
+
 public class FieldFactory {
 
     /**
@@ -181,13 +183,12 @@ public class FieldFactory {
         return getFieldsFiltered(field -> field.getProperties().contains(FieldProperty.PERSON_NAMES));
     }
 
-    private static Set<Field> getFieldsFiltered(Predicate<Field> selector) {
+     static Set<Field> getFieldsFiltered(Predicate<Field> selector) {
         return getAllFields().stream()
                              .filter(selector)
                              .collect(Collectors.toSet());
     }
-
-    private static Set<Field> getAllFields() {
+    public static Set<Field> getAllFields() {
         Set<Field> fields = new HashSet<>();
         fields.addAll(EnumSet.allOf(BiblatexApaField.class));
         fields.addAll(EnumSet.allOf(BiblatexSoftwareField.class));
